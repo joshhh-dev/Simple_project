@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drying Process</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        input, button { width: 100%; padding: 10px; margin: 5px 0; }
+        button { background: #007BFF; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>LPG Submetering Data</h2>
+    
+    <label>Initial Reading (kg):</label>
+    <input type="number" id="initialReading" step="0.01">
+    
+    <label>Final Reading (kg):</label>
+    <input type="number" id="finalReading" step="0.01">
+    
+    <label>Price per kg (₱):</label>
+    <input type="number" id="pricePerKg" step="0.01">
+
+    <button onclick="saveData()">Save Data</button>
+    <button onclick="viewReport()">View Report</button>
+</div>
+
+<script>
+function saveData() {
+    let initialReading = parseFloat(document.getElementById("initialReading").value);
+    let finalReading = parseFloat(document.getElementById("finalReading").value);
+    let pricePerKg = parseFloat(document.getElementById("pricePerKg").value);
+
+    if (isNaN(initialReading) || isNaN(finalReading) || isNaN(pricePerKg)) {
+        alert("Please enter valid values.");
+        return;
+    }
+
+    if (finalReading > initialReading) {
+        alert("Error: Final reading cannot be greater than the initial reading.");
+        return;
+    }
+
+    let gasUsed = (initialReading - finalReading).toFixed(2);
+    let totalCost = (gasUsed * pricePerKg).toFixed(2);
+
+    localStorage.setItem("initial_reading", initialReading);
+    localStorage.setItem("final_reading", finalReading);
+    localStorage.setItem("gas_used", gasUsed);
+    localStorage.setItem("total_cost", totalCost);
+
+    alert("Data Saved! View the report.");
+}
+function viewReport() {
+    // Redirect to output page
+    window.open("output_2.html", "_blank");
+}
+
+</script>
+
+</body>
+</html>
