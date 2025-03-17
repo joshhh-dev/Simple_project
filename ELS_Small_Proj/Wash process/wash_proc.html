@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 5vh;
+            padding: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -181,16 +181,16 @@
             }
         }
 
-    #back_bnt{
-    position: absolute;
-    bottom: -80%; /* Moves the button to the bottom */
-    left: 50%;
-    transform: translateX(-50%); /* Centers the button */
-    width: 10%;
+        #back_bnt {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        background-color: #0056b3;
     }
-    </style>
-    
 
+    </style>
 </head>
 <body>
 
@@ -280,6 +280,7 @@
     
 
 <script>
+    
 function validateForm() {
     let isValid = true;
 

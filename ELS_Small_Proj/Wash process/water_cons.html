@@ -123,7 +123,8 @@
     </select>
 
         <p><strong>Start Time:</strong> <span id="startTime">--:--:--</span></p>
-        <p><strong>Start Reading (L):</strong><input type="number" id="start_read"></p>
+        <p><strong>Start Reading (m³):</strong><input type="number" id="start_read"></p>
+        <!-- <p><strong>Cost</strong></p> -->
         
         
         <button class="btn-water" onclick="startMetering()">Start Metering</button>
@@ -132,9 +133,8 @@
         <button class="btn-air" onclick="submitData()">Add to template</button>
 
         <p><strong>End Time:</strong> <span id="endTime">--:--:--</span></p>
-        <p><strong>End Reading (L):</strong> <span id="endReading">0</span></p>
-        <p><strong>Total Used:</strong> <span id="totalUsed">0</span> L</p>
-        <p><strong>Estimated Cost:</strong> ₱<span id="cost">0</span></p>
+        <p><strong>End Reading (m³):</strong> <span id="endReading">0</span></p>
+        <p><strong>Total Used:</strong> <span id="totalUsed">0</span> m³</p>
     </div>
 
     <script>
@@ -143,7 +143,7 @@
         let totalUsed = 0;
         let interval;
         let waterType = "Cold";
-        let costPerLiter = { Cold: 0.50, Hot: 1.50, Warm: 1.00 }; // Updated cost in PHP
+        let costPerLiter = { Cold: 500, Hot: 1500, Warm: 1000 }; // Updated cost in PHP
 
         function startMetering() {
     if (!interval) {
@@ -163,11 +163,11 @@
         waterType = document.getElementById("waterType").value;
 
         interval = setInterval(() => {
-            let usage = Math.floor(Math.random() * 5) + 1; // Simulated usage
+            let usage = (Math.floor(Math.random() * 5000) + 1000)/1000; // Simulated usage
             endReading += usage;
-            document.getElementById("endReading").textContent = endReading;
+            document.getElementById("endReading").textContent = endReading.toFixed(3);
             totalUsed = endReading - startReading;
-            document.getElementById("totalUsed").textContent = totalUsed;
+            document.getElementById("totalUsed").textContent = totalUsed.toFixed(3);
             document.getElementById("cost").textContent = (totalUsed * costPerLiter[waterType]).toFixed(2);
         }, 2000);
     }
@@ -193,10 +193,11 @@ function stopMetering() {
             totalUsed = 0;
             document.getElementById("startTime").textContent = "--:--:--";
             document.getElementById("endTime").textContent = "--:--:--";
-            document.getElementById("startReading").textContent = "0";
-            document.getElementById("endReading").textContent = "0";
-            document.getElementById("totalUsed").textContent = "0";
-            document.getElementById("cost").textContent = "0";
+            document.getElementById("start_read").value = "";
+            // document.getElementById("startReading").textContent = "0";
+            document.getElementById("endReading").textContent = "0.000";
+            document.getElementById("totalUsed").textContent = "0.000";
+            document.getElementById("cost").textContent = "0.00";
         }
 
         function submitData() {
