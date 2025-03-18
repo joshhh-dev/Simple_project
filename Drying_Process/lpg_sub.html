@@ -78,13 +78,15 @@ function saveData() {
     localStorage.setItem("gas_used", gasUsed);
     localStorage.setItem("total_cost", totalCost);
 
-    alert("Data submitted successfully!");
+}
+    viewReport() {
+           alert("Data submitted successfully!");
 
     // Redirect after 2 seconds
     setTimeout(function() {
         window.open("output_2.html", "blank"); // Redirect to the output page
         location.reload(); // Reload the current page after submission
-    }, 1000);
+    }, 1000); 
 }
 
 </script>
